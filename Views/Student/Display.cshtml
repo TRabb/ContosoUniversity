@@ -18,19 +18,20 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstMidName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EnrollmentDate)
-            </td>
-            <td>
-            </td>
-        </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.LastName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FirstMidName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.EnrollmentDate)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "EditDisplay", new { id = item.ID })
+    </td>
+</tr>
     }
 </table>
 

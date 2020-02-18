@@ -21,6 +21,34 @@ namespace ContosoUniversity.Controllers
             return View(db.Students.ToList());
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditDisplay([Bind(Include = "ID,LastName,FirstMidName,EnrollmentDate")] Student student)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(student).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Display");
+            }
+            return View(student);
+        }
+
+        // GET: Student/Edit/5
+        public ActionResult EditDisplay(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Student student = db.Students.Find(id);
+            if (student == null)
+            {
+                return HttpNotFound();
+            }
+            return View(student);
+        }
+
         public ActionResult Display()
         {
             return View(db.Students.ToList());
@@ -52,7 +80,7 @@ namespace ContosoUniversity.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,LastName,FirstMidName,EnrollmentDate")] Student student)
+        public ActionResult Create([Bind(Include = "ID,LastName,FirstMidName,Phone,EnrollmentDate")] Student student)
         {
             if (ModelState.IsValid)
             {
@@ -84,7 +112,7 @@ namespace ContosoUniversity.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,LastName,FirstMidName,EnrollmentDate")] Student student)
+        public ActionResult Edit([Bind(Include = "ID,LastName,FirstMidName,Phone,EnrollmentDate")] Student student)
         {
             if (ModelState.IsValid)
             {
